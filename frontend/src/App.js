@@ -8,7 +8,7 @@ function App() {
   const [currency, setCurrency] = useState('INR');
 
   useEffect(() => {
-    axios.get('http://localhost:10000/api/top10') // Ensure this matches the backend server's port
+    axios.get('https://cryptotracker-backend-ok6j.onrender.com/api/top10')
       .then(response => {
         setData(response.data);
         console.log('Data fetched:', response.data); // Debugging log
