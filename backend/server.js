@@ -7,10 +7,12 @@ const connectDB = require('./config/db');
 
 const app = express();
 
-// Configure CORS options
+// Set up CORS options dynamically based on environment
 const corsOptions = {
-  origin: 'http://localhost:3000', // Your frontend URL
-  optionsSuccessStatus: 200,       // Some legacy browsers choke on 204
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://cryptotracker-frontend.onrender.com' // Your production frontend URL
+    : 'http://localhost:3000',                    // Development environment (localhost)
+  optionsSuccessStatus: 200,                       // Some legacy browsers choke on 204
 };
 
 // Use CORS middleware with the specified options
@@ -23,8 +25,10 @@ connectDB();
 // Use routes
 app.use('/api', cryptoRoutes);
 
-const PORT = process.env.PORT || 10000; // Ensure PORT is correctly set in .env
+// Ensure PORT is correctly set in .env
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
 
 
